@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'home/main.css' %}" media="screen" title="no title" charset="UTF-8" >
+    <title>{{request.session.user_name}}</title>
+</head>
+<body>
+    <p><a href="{% url 'user:logout' %}">Logout</a></p>
+    <h1>Hello {{request.session.user_name}}!</h1>
+    <h2>Your wishlist</h2>
+
+    {% for wish in wishes %}
+
+        <h3><a href="{% url 'home:item' item_id=wish.wish.id %}">
+        {{wish.wish.title}}</a>
+
+         By: {{wish.wish.user.name}} added on {{wish.created_at}} 
+         {% if request.session.user_id == wish.wish.user.id %}
+         <a href="{% url 'home:delete' item_id=wish.wish_id %}"> delete </a>
+         {% else %}
+         <a href="{% url 'home:unwish' wish_id=wish.wish_id %}"> Remove </a>
+         {% endif %}
+         
+    {% endfor %}
+    </h3>
+    <hr><hr>
+    <h2>Others Wish list</h2>
+
+    {% for item in items %}
+    <h3><a href="{% url 'home:item' item_id=item.id %}">{{item.title}}</a> wish by: {{item.user.name}} {{item.created_at}} <a href="{% url 'home:wish' wish_id=item.id %}">add to wishlist</a></h3>
+    {% endfor %}
+    <hr><hr>
+    <a href="{% url 'home:add' %}">Add an iteam</a>
+</body>
+</html>

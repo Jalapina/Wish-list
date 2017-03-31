@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'home/main.css' %}" media="screen" title="no title" charset="UTF-8" >
+    <title>Login/Register</title>
+</head>
+<body>
+    <h1>Hello</h1>
+    <form action="{% url 'user:login' %}" method="POST">
+            {% csrf_token %}
+            Username:<input type="text" name="html_username">
+            Password:<input type="password" name="html_password"> 
+        <input type="submit" value="Login">
+        </form>
+        <hr><hr>
+       <form action="{% url 'user:register' %}" method="POST">
+            {% csrf_token %}
+            First Name<input type="text" name="html_name"><br>
+            Username<input type="text" name="html_username"><br>
+            Email&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="email" name="html_email"> <br>
+            Password&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="password" name="html_password"> <br>
+            Confirm Password:<input type="password" name="html_confirm"><br>
+            Date Hired:<input type="date" name="html_date">
+            <input type="submit" value="Register">
+        </form> 
+        {% for m in messages %}
+            <p>{{m}}</p>
+        {% endfor %}
+</body>
+</html>

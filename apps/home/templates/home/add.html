@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'home/main.css' %}" media="screen" title="no title" charset="UTF-8" >
+    <title>Add new Iteam</title>
+</head>
+<body>
+    <p><a href="{% url 'user:logout' %}">Logout</a>&nbsp&nbsp&nbsp&nbsp<a href="{% url 'home:home' %}">Home</a></p>
+    <h1>Create a new wish list iteam</h1>
+    <form action="{% url 'home:add' %}" method="POST">
+    {% csrf_token %}
+    <input type="text" name="wish_name">
+    <input type="submit" value="Add">
+
+    </form>
+    {% for m in messages %}
+        {{m}}
+    {% endfor %}
+</body>
+</html>
